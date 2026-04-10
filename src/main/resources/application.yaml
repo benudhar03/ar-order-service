@@ -1,0 +1,57 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: ar-order-service
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/order_db?replicaSet=rs0
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: order-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 50
+      max-poll-interval-ms: 300000
+
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      properties:
+        spring.json.trusted.packages: com.order.service.dto
+        spring.json.value.default.type: com.order.service.dto.OrderEvent
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+      acks: all
+      retries: 3
+
+      properties:
+        linger.ms: 10
+        batch.size: 32768
+        enable.idempotence: true
+        compression.type: snappy
+
+    listener:
+      ack-mode: manual
+      concurrency: 3
+      type: batch   # only if using batch listener
+
+  jackson:
+    time-zone: UTC
+
+logging:
+  level:
+    root: INFO
+    org.springframework.kafka: INFO
+    com.order.service: DEBUG
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] [%X{traceId}] %-5level %logger - %msg%n"
