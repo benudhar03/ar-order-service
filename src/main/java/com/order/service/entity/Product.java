@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -38,12 +40,11 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Product implements Persistable<String> {
 
     @Id
     private String productId;
 
-    // Vendor Ownership
     @Indexed
     private String vendorId;
 
@@ -76,12 +77,22 @@ public class Product {
 
     private Boolean active;
 
-    @Version
-    private Long version;
-
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
 
     private Map<String, Object> attributes;
+
+    @Transient
+    private boolean isNew = true;
+
+    @Override
+    public String getId() {
+        return this.productId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
 }

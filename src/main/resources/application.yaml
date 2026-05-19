@@ -7,7 +7,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017/order_db?replicaSet=rs0
+      uri: mongodb://localhost:27017/order_db
 
   kafka:
     bootstrap-servers: localhost:9092

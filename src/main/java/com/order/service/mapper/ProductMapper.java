@@ -59,7 +59,7 @@ public class ProductMapper {
                 .imageUrls(product.getImageUrls())
                 .status(product.getStatus())
                 .active(product.getActive())
-                .version(product.getVersion())
+                .version(1L) // Placeholder for versioning, can be implemented with @Version in MongoDB
                 .createdAt(product.getCreatedAt())
                 .updatedAt(product.getUpdatedAt())
                 .build();

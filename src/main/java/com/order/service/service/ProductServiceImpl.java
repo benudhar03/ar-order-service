@@ -5,7 +5,9 @@ import com.order.service.entity.Product;
 import com.order.service.enums.ProductStatus;
 import com.order.service.mapper.ProductMapper;
 import com.order.service.repository.ProductRepository;
+import com.order.service.util.IdempotencyUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -26,19 +29,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse createProduct(ProductCreateRequest productCreateRequest) {
-        Product product =
-                productMapper.toDocument(productCreateRequest);
 
-        product.setStatus(ProductStatus.DRAFT);
-        product.setActive(Boolean.TRUE);
-        product.setVersion(1L);
-        product.setCreatedAt(LocalDateTime.now());
-        product.setUpdatedAt(LocalDateTime.now());
+        try {
+            Product product =
+                    productMapper.toDocument(productCreateRequest);
+            String productId =
+                    generateUniqueProductId();
+            product.setProductId(productId);
+            product.setStatus(ProductStatus.DRAFT);
+            product.setActive(Boolean.TRUE);
+            product.setCreatedAt(LocalDateTime.now());
+            product.setUpdatedAt(LocalDateTime.now());
 
-        Product savedProduct =
-                productRepository.save(product);
+            Product savedProduct =
+                    productRepository.save(product);
 
-        return productMapper.toResponse(savedProduct);
+            return productMapper.toResponse(savedProduct);
+        }catch (Exception e){
+            log.error("Error creating product: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to create product: " + e.getMessage(), e);
+        }
     }
 
     @Override
@@ -144,5 +154,15 @@ public class ProductServiceImpl implements ProductService {
                         .toList();
 
         return new PageImpl<>(responses, pageable, total);
+    }
+
+
+    private String generateUniqueProductId() {
+        String productId;
+        do {
+            productId =
+                    IdempotencyUtil.generateProductId();
+        } while (productRepository.existsById(productId));
+        return productId;
     }
 }
