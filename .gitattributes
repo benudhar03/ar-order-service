@@ -1,2 +1,42 @@
+# Auto detect text files
+* text=auto
+
+# Maven Wrapper
 /mvnw text eol=lf
+mvnw text eol=lf
 *.cmd text eol=crlf
+
+# Shell Scripts
+*.sh text eol=lf
+
+# Java Source
+*.java text eol=lf
+
+# Config Files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+
+# XML Files
+*.xml text eol=lf
+
+# JSON Files
+*.json text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# Docker
+Dockerfile text eol=lf
+*.dockerfile text eol=lf
+
+# Git Scripts
+*.bat text eol=crlf
+
+# Binary Files
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

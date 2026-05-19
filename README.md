@@ -1,14 +1,22 @@
-# 🧾 Order Service - Production Ready Event-Driven System
+# 🧾 Order Service & 🛍️ Product Service - Production Ready Event-Driven Ecommerce System
 
 ## 🚀 Overview
+This project contains two production-grade microservices designed for scalable ecommerce systems:
 
-This project is a **production-grade Order Management Service** built using modern backend practices and patterns.
+1. **Order Service**
+2. **Product Service**
 
-It follows an **Event-Driven Microservices Architecture** using:
+
+It follows scalable backend design principles using:
+
 - **Spring Boot**
-- **Apache Kafka**
 - **MongoDB**
-- **Transactional Outbox Pattern**
+- **MongoTemplate**
+- **REST APIs**
+- **Dynamic Filtering**
+- **Pagination & Sorting**
+- **Redis Caching (Extensible)**
+- **Distributed Locking Ready Architecture**
 
 The system ensures:
 - ✅ High scalability
@@ -33,3 +41,45 @@ The architecture consists of the following components:
     - Notification Service → sends alerts
 5. Services emit events back to Kafka
 6. Order Service consumes events and updates final status
+
+---
+
+# 🧩 Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Java 21 | Backend Development |
+| Spring Boot | REST APIs |
+| MongoDB | Product Catalog Database |
+| MongoTemplate | Dynamic Querying |
+| Maven | Build Tool |
+| Lombok | Boilerplate Reduction |
+| Swagger/OpenAPI | API Documentation |
+
+---
+
+## Request Payload Example
+```json
+{
+   "vendorId": "VENDOR_1001",
+   "vendorName": "ABC Mobiles Pvt Ltd",
+   "productName": "iPhone 17 Pro",
+   "skuCode": "APL-IP17PRO-256",
+   "category": "Electronics",
+   "subCategory": "Mobile",
+   "brand": "Apple",
+   "price": 159999,
+   "quantity": 50,
+   "description": "Latest Apple flagship mobile",
+   "imageUrls": [
+      "https://cdn.company.com/products/apple/front.png",
+      "https://cdn.company.com/products/apple/back.png"
+   ],
+   "active": true,
+   "attributes": {
+      "color": "Black Titanium",
+      "storage": "256GB",
+      "ram": "12GB"
+   }
+}
+```
