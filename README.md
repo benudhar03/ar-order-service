@@ -16,6 +16,10 @@ The system ensures:
 - ✅ Data consistency
 - ✅ Reliable message processing
 
+## Localhost Access
+- Order Service: `http://localhost:9090/swagger-ui/index.html`
+- Kafka: `http://localhost:9092`
+- MongoDB: `mongodb://localhost:27017`
 ---
 
 ## 🏗️ Architecture
