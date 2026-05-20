@@ -8,6 +8,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/order_db
+      auto-index-creation: true
 
   kafka:
     bootstrap-servers: localhost:9092
@@ -38,19 +39,42 @@ spring:
         batch.size: 32768
         enable.idempotence: true
         compression.type: snappy
+        max.in.flight.requests.per.connection: 5
 
     listener:
       ack-mode: manual
       concurrency: 3
-      type: batch   # only if using batch listener
+      type: batch
+
+      missing-topics-fatal: false
 
   jackson:
     time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+
+  endpoint:
+    health:
+      show-details: always
 
 logging:
   level:
     root: INFO
     org.springframework.kafka: INFO
+    org.mongodb.driver: INFO
     com.order.service: DEBUG
 
   pattern:
