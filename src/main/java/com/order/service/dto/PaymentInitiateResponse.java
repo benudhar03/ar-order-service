@@ -1,5 +1,6 @@
 package com.order.service.dto;
 
+import com.order.service.enums.PaymentProvider;
 import lombok.Builder;
 import lombok.Data;
 
@@ -28,7 +29,7 @@ public class PaymentInitiateResponse {
     /**
      * Payment Gateway Provider
      */
-    private String provider;
+    private PaymentProvider provider;
 
     /**
      * UPI / CARD / WALLET

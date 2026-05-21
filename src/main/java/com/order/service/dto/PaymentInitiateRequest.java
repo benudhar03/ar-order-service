@@ -1,5 +1,6 @@
 package com.order.service.dto;
 
+import com.order.service.enums.PaymentProvider;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -47,7 +48,7 @@ public class PaymentInitiateRequest {
      * CASHFREE
      */
     @NotBlank
-    private String paymentProvider;
+    private PaymentProvider paymentProvider;
 
     /**
      * Product/cart details

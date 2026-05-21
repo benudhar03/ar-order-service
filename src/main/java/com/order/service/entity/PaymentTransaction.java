@@ -1,5 +1,6 @@
 package com.order.service.entity;
 
+import com.order.service.enums.PaymentProvider;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -37,7 +38,7 @@ public class PaymentTransaction {
     /**
      * RAZORPAY / STRIPE / PHONEPE
      */
-    private String provider;
+    private PaymentProvider provider;
 
     /**
      * INITIATED

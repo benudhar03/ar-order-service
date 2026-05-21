@@ -1,5 +1,6 @@
 package com.order.service.dto;
 
+import com.order.service.enums.PaymentProvider;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -34,7 +35,7 @@ public class PaymentVerificationRequest {
      * PAYTM
      */
     @NotBlank(message = "Provider is required")
-    private String provider;
+    private PaymentProvider provider;
 
     /**
      * Gateway payment reference

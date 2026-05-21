@@ -11,8 +11,7 @@ import java.util.UUID;
 @Component
 public class PaymentMapper {
 
-    public PaymentTransaction toPaymentTransaction(
-            PaymentInitiateRequest request) {
+    public PaymentTransaction toPaymentTransaction(PaymentInitiateRequest request) {
 
         return PaymentTransaction.builder()
                 .paymentId(generatePaymentId())
@@ -25,26 +24,15 @@ public class PaymentMapper {
                 .build();
     }
 
-    public void updatePaymentTransaction(
-            PaymentTransaction paymentTransaction,
-            PaymentInitiateResponse response) {
+    public void updatePaymentTransaction(PaymentTransaction paymentTransaction, PaymentInitiateResponse response) {
 
-        paymentTransaction.setTransactionId(
-                response.getTransactionId());
-
-        paymentTransaction.setPaymentStatus(
-                response.getPaymentStatus());
-
-        paymentTransaction.setGatewayResponse(
-                response.getGatewayResponse());
-
-        paymentTransaction.setUpdatedAt(
-                LocalDateTime.now());
+        paymentTransaction.setTransactionId(response.getTransactionId());
+        paymentTransaction.setPaymentStatus(response.getPaymentStatus());
+        paymentTransaction.setGatewayResponse(response.getGatewayResponse());
+        paymentTransaction.setUpdatedAt(LocalDateTime.now());
     }
 
-    public PaymentInitiateResponse toPaymentInitiateResponse(
-            PaymentTransaction paymentTransaction,
-            PaymentInitiateResponse response) {
+    public PaymentInitiateResponse toPaymentInitiateResponse(PaymentTransaction paymentTransaction, PaymentInitiateResponse response) {
 
         return PaymentInitiateResponse.builder()
                 .paymentId(paymentTransaction.getPaymentId())
@@ -62,8 +50,7 @@ public class PaymentMapper {
                 .build();
     }
 
-    public PaymentStatusResponse toPaymentStatusResponse(
-            PaymentTransaction paymentTransaction) {
+    public PaymentStatusResponse toPaymentStatusResponse(PaymentTransaction paymentTransaction) {
 
         return PaymentStatusResponse.builder()
                 .paymentId(paymentTransaction.getPaymentId())
@@ -81,21 +68,14 @@ public class PaymentMapper {
     }
 
     public void updatePaymentVerification(
-            PaymentTransaction paymentTransaction,
-            PaymentVerificationResponse response) {
+            PaymentTransaction paymentTransaction, PaymentVerificationResponse response) {
 
-        paymentTransaction.setPaymentStatus(
-                response.getPaymentStatus());
-
-        paymentTransaction.setGatewayResponse(
-                response.getGatewayResponse());
-
-        paymentTransaction.setUpdatedAt(
-                LocalDateTime.now());
+        paymentTransaction.setPaymentStatus(response.getPaymentStatus());
+        paymentTransaction.setGatewayResponse(response.getGatewayResponse());
+        paymentTransaction.setUpdatedAt(LocalDateTime.now());
     }
 
-    public void updateRefundStatus(PaymentTransaction paymentTransaction,
-            RefundRequest request) {
+    public void updateRefundStatus(PaymentTransaction paymentTransaction, RefundRequest request) {
 
         if (request.getRefundAmount()
                 .compareTo(paymentTransaction.getAmount()) == 0) {

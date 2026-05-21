@@ -1,5 +1,6 @@
 package com.order.service.dto;
 
+import com.order.service.enums.PaymentProvider;
 import lombok.Builder;
 import lombok.Data;
 
@@ -27,7 +28,7 @@ public class PaymentStatusResponse {
      */
     private String paymentStatus;
 
-    private String provider;
+    private PaymentProvider provider;
 
     private String paymentMethod;
 

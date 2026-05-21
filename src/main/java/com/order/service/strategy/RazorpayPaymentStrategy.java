@@ -25,33 +25,26 @@ public class RazorpayPaymentStrategy implements PaymentGatewayStrategy {
         log.info("Initiating Razorpay payment");
 
         return PaymentInitiateResponse.builder()
-                .transactionId(
-                        UUID.randomUUID().toString())
-                .paymentStatus(
-                        PaymentStatus.PENDING.name())
-                .paymentUrl(
-                        "https://razorpay.com/payment-link")
+                .transactionId(UUID.randomUUID().toString())
+                .paymentStatus(PaymentStatus.PENDING.name())
+                .paymentUrl("https://razorpay.com/payment-link")
                 .gatewayResponse(
                         Map.of(
                                 "gatewayOrderId",
                                 "razor_order_123"))
-                .message(
-                        "Razorpay payment initiated")
+                .message("Razorpay payment initiated")
                 .initiatedAt(LocalDateTime.now())
                 .build();
     }
 
     @Override
-    public PaymentVerificationResponse verifyPayment(
-            PaymentVerificationRequest request) {
+    public PaymentVerificationResponse verifyPayment(PaymentVerificationRequest request) {
 
         log.info("Verifying Razorpay payment");
-
         return PaymentVerificationResponse.builder()
                 .paymentId(request.getPaymentId())
                 .transactionId(request.getTransactionId())
-                .paymentStatus(
-                        PaymentStatus.SUCCESS.name())
+                .paymentStatus(PaymentStatus.SUCCESS.name())
                 .verificationStatus("VERIFIED")
                 .signatureValid(true)
                 .verifiedAt(LocalDateTime.now())
@@ -59,11 +52,9 @@ public class RazorpayPaymentStrategy implements PaymentGatewayStrategy {
     }
 
     @Override
-    public RefundResponse refundPayment(
-            RefundRequest request) {
+    public RefundResponse refundPayment(RefundRequest request) {
 
         log.info("Refunding Razorpay payment");
-
         return RefundResponse.builder()
                 .paymentId(request.getPaymentId())
                 .refundStatus("SUCCESS")
