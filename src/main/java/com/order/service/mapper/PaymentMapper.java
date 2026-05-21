@@ -77,16 +77,12 @@ public class PaymentMapper {
 
     public void updateRefundStatus(PaymentTransaction paymentTransaction, RefundRequest request) {
 
-        if (request.getRefundAmount()
-                .compareTo(paymentTransaction.getAmount()) == 0) {
-            paymentTransaction.setPaymentStatus(
-                    PaymentStatus.REFUNDED.name());
+        if (request.getRefundAmount().compareTo(paymentTransaction.getAmount()) == 0) {
+            paymentTransaction.setPaymentStatus(PaymentStatus.REFUNDED.name());
         } else {
-            paymentTransaction.setPaymentStatus(
-                    PaymentStatus.PARTIAL_REFUND.name());
+            paymentTransaction.setPaymentStatus(PaymentStatus.PARTIAL_REFUND.name());
         }
-        paymentTransaction.setUpdatedAt(
-                LocalDateTime.now());
+        paymentTransaction.setUpdatedAt(LocalDateTime.now());
     }
 
     public CommonApiResponse toCancelResponse() {
