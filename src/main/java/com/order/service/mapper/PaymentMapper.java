@@ -76,7 +76,6 @@ public class PaymentMapper {
     }
 
     public void updateRefundStatus(PaymentTransaction paymentTransaction, RefundRequest request) {
-
         if (request.getRefundAmount().compareTo(paymentTransaction.getAmount()) == 0) {
             paymentTransaction.setPaymentStatus(PaymentStatus.REFUNDED.name());
         } else {
@@ -86,7 +85,6 @@ public class PaymentMapper {
     }
 
     public CommonApiResponse toCancelResponse() {
-
         return CommonApiResponse.builder()
                 .success(true)
                 .code("PAYMENT_CANCELLED")
