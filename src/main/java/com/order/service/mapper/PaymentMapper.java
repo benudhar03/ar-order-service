@@ -94,7 +94,6 @@ public class PaymentMapper {
     }
 
     private String generatePaymentId() {
-
         return "PAY_" +
                 UUID.randomUUID()
                         .toString()
